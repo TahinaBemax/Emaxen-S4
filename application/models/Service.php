@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 class Service extends CI_Model {
     public function getAll(){
             $query = "SELECT * FROM type_service ORDER BY idTypeService ASC";
