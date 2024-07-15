@@ -1,4 +1,8 @@
- <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;margin-top: 174px;">
+<?php
+    $dateActuel = new DateTime();
+    $dateActuel = $dateActuel->format("yyyy-mm-dd");
+?>
+<div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;margin-top: 174px;">
         <div class="carousel-inner h-100">
             <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?= base_url('assets/img/votre-garage-automobile-a-reze-reparations-et-vehicules-doccasion-1024x574.png ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(34%) grayscale(100%);opacity: 0.99;">
                 <div class="container d-flex flex-column justify-content-center h-100">
@@ -46,34 +50,59 @@
                 <section>
                     <h1 class="text-center text-capitalize">Reservez <span style="color: rgb(0, 155, 79);">Maintenant</span></h1>
                     <div class="container">
+                        <!-- FORM -->
                         <form id="application-form">
+                            <input type="hidden" value="1" name="idClient">
                             <div class="form-group mb-3">
                                 <div class="row">
                                     <div class="col">
-                                        <p><strong>Nom</strong></p><input class="form-control" type="text" required="" name="" placeholder="Ex. Randria">
+                                        <p><strong>Nom</strong></p>
+                                        <input class="form-control" type="text" name="" placeholder="Ex. Randria">
                                     </div>
                                     <div class="col">
-                                        <p><strong>Prenom</strong></p><input class="form-control" type="text" required="" name="" placeholder="Ex. bemax">
+                                        <p><strong>Prenom</strong></p>
+                                        <input class="form-control" type="text" name="" placeholder="Ex. bemax">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <p><strong>Date de reservation</strong><span class="text-danger"></span></p>
+                                <p>
+                                    <strong>Date de reservation</strong>
+                                    <input class="form-control" type="date" name="date" value="<?= $dateActuel ?>">
+                                    <span class="text-danger date-debut"></span>
+                                </p>
                             </div>
                             <div class="form-group mb-3">
-                                <p><input class="form-control" type="date" required="" name=""><span class="text-danger">*</span><strong>Heure de reservation</strong></p><input class="form-control" name="" placeholder="7777777777" type="time">
+                                <p>
+                                    <span class="text-danger">*</span><strong>Heure de reservation</strong>
+                                    <input class="form-control" name="heure" placeholder="7777777777" type="time">
+                                    <span class="text-danger heure-debut"></span>
+                                </p>
                             </div>
                             <div class="form-group mb-3">
-                                <p><strong>Choix de service</strong><span class="text-danger">*</span></p><select class="form-select" required="" name="" placeholder="Ex. Room No-361, 33/1, 3rd Floor"></select>
+                                <p>
+                                    <strong>Choix de service</strong>
+                                    <span class="text-danger">*</span>
+                                </p>
+                                <select class="form-select" name="service" placeholder="Ex. Room No-361, 33/1, 3rd Floor">
+                                    <option value="">Choisir type service</option>
+                                    <?php  foreach ($services as $s) { ?>
+                                        <option value="<?= $s['idTypeService'] ?>"><?= $s['type'] ?></option>
+                                    <?php } ?>
+                                </select>
+                                <span class="text-danger service"></span>
                             </div>
                             <div class="justify-content-center d-flex form-group mb-3">
                                 <div id="submit-btn">
                                     <div class="row">
-                                        <div class="col"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="border-style: none;background: rgb(2,156,80);box-shadow: -4px 3px 11px rgb(4,90,100);">Valider</button></div>
+                                        <div class="col"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="submit" style="border-style: none;background: rgb(2,156,80);box-shadow: -4px 3px 11px rgb(4,90,100);">Valider</button></div>
                                     </div>
                                 </div>
                             </div>
+                            <span class="text-success success"></span>
+                            <span class="text-danger unsuccess"></span>
                         </form>
+                        <!-- xxxxxxx -->
                     </div>
                     <div class="col">
                         <h3 id="fail" class="text-center text-danger d-none"><br>Form not Submitted&nbsp;<a href="contact.html">Try Again</a><br><br></h3>
@@ -86,3 +115,6 @@
             </div>
         </div>
     </div>
+
+
+    <script src="<?= base_url('assets/js/rdv-controller.js') ?>"></script>
