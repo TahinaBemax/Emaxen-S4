@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 class RendezVous extends CI_Model {
     public function insert($date_debut, $date_fin, $idSlot, $idClient, $idTypeService){
         $query = "INSERT INTO rendez_vous (date_debut, date_fin, idSlot, idClient, idTypeService) 
