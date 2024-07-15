@@ -69,7 +69,6 @@ class Admin extends CI_Controller
         }
         echo json_encode($reponse);
     }
-
     public function insert()
     {
         //--- Load ---
@@ -93,5 +92,38 @@ class Admin extends CI_Controller
             $reponse['message'] = $e->getMessage();
         }
         echo json_encode($reponse);
+    }
+
+    /* ------ DEVIS ----------- */
+    public function devis()
+    {
+        try {
+
+            $this->load->model('Devis', 'd');
+            $data['devis'] = $this->d->get_all_devis();
+            $this->load->view('admin/header', ['title' => "Devis"]);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/devis', $data);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function devisByDatePaiement()
+    {
+        try {
+            //--- Load ---
+            $this->load->helper(array('form', 'url'));
+            $this->load->model('Service', 'c');
+
+            $date = $this->input->post('date');
+
+            $this->load->model('Devis', 'd');
+            $data['devis'] = $this->d->getByDatePaiement($date);
+            $this->load->view('admin/header', ['title' => "Devis"]);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/devis', $data);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
