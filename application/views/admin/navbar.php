@@ -7,10 +7,10 @@
                     <a href="http://localhost/garage/Home/admin">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="http://localhost/garage/Service/">Service</a>
+                    <a href="http://localhost/garage/Admin/">Service</a>
                 </li>
                 <li class="nav-item">
-                    <a href="http://localhost/garage/Service/devis">Devis</a>
+                    <a href="http://localhost/garage/Admin/devis">Devis</a>
                 </li>
                 <li class="nav-item">
                     <a href="http://localhost/garage/Rdv/calendar">Rendez-vous</a>
