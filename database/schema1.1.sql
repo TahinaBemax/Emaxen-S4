@@ -1,3 +1,6 @@
+CREATE DATABASE garage;
+use garage;
+
 CREATE TABLE type_service(
    idTypeService INT AUTO_INCREMENT,
    type VARCHAR(250)  NOT NULL,
@@ -34,9 +37,10 @@ CREATE TABLE slot(
    PRIMARY KEY(idSlot)
 );
 
-CREATE TABLE heureOuverture(
+CREATE TABLE heure(
    idOuverture INT AUTO_INCREMENT,
    heure_ouverture TIME NOT NULL,
+   heure_fermeture TIME NOT null,
    PRIMARY KEY(idOuverture)
 );
 
@@ -63,3 +67,11 @@ CREATE TABLE voiture(
    FOREIGN KEY(idClient) REFERENCES client(idClient),
    FOREIGN KEY(idTypeVoiture) REFERENCES type_voiture(idTypeVoiture)
 );
+
+-- ---------- VIEWS ---------
+CREATE OR REPLACE VIEW v_voiture as
+SELECT voiture.*, type_voiture.type
+FROM voiture JOIN type_voiture ON voiture.idTypeVoiture = type_voiture.idTypeVoiture;
+
+CREATE OR REPLACE VIEW v_client as
+SELECT v_voiture.* FROM client JOIN v_voiture ON client.idClient = v_voiture.idClient;
