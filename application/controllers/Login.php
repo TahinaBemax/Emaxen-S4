@@ -4,7 +4,7 @@ class Login extends CI_Controller
 {
     public function index()
     {
-        $this->load->model('Voiture', 'v');
+        $this->load->model('TypeVoiture', 'v');
         try {
             $data['typeVoiture'] =$this->v->getAll();
             $this->load->view('login', $data);

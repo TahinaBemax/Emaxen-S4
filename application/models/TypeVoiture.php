@@ -1,9 +1,9 @@
 <?php
 
-class Voiture extends CI_Model
+class TypeVoiture extends CI_Model
 {
     public function getAll(){
-        $query = "SELECT * FROM v_voiture ORDER BY idVoiture ASC";
+        $query = "SELECT * FROM type_voiture";
 
         $result = $this->db->query($query);
         $voiture = [];

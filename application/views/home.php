@@ -1,6 +1,6 @@
  <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;margin-top: 174px;">
         <div class="carousel-inner h-100">
-            <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?php base_url('assets/img/votre-garage-automobile-a-reze-reparations-et-vehicules-doccasion-1024x574.png ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(34%) grayscale(100%);opacity: 0.99;">
+            <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?= base_url('assets/img/votre-garage-automobile-a-reze-reparations-et-vehicules-doccasion-1024x574.png ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(34%) grayscale(100%);opacity: 0.99;">
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="row">
                         <div class="col-md-6 col-xl-4 offset-md-2">
@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?php base_url('assets/img/vue-dessus-homme-reparant-voiture.jpg ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(51%);">
+            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?= base_url('assets/img/vue-dessus-homme-reparant-voiture.jpg ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(51%);">
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="row">
                         <div class="col-md-6 col-xl-4 offset-md-2">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?php base_url('assets/img/istockphoto.jpg ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(51%) contrast(109%) saturate(55%);">
+            <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover" src="<?= base_url('assets/img/istockphoto.jpg ') ?>" alt="Slide Image" style="z-index: -1;filter: brightness(51%) contrast(109%) saturate(55%);">
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="row">
                         <div class="col-md-6 col-xl-4 offset-md-2">
@@ -82,7 +82,7 @@
                 </section>
             </div>
             <div class="col-md-6">
-                <div class="p-xl-5 m-xl-5"><img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;filter: brightness(58%);" src="<?php base_url('assets/img/Black%20Flat%20Illustrative%20Garage%20Service%20Logo.png ') ?>"></div>
+                <div class="p-xl-5 m-xl-5"><img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;filter: brightness(58%);" src="<?= base_url('assets/img/Black%20Flat%20Illustrative%20Garage%20Service%20Logo.png ') ?>"></div>
             </div>
         </div>
     </div>
