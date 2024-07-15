@@ -4,7 +4,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="<?= base_url('assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-Ludens---1-Index-Table-with-Search--Sort-Filters.js ') ?>"></script>
 <script src="<?= base_url('assets/js/Ludens---1-Index-Table-with-Search--Sort-Filters-v20-Ludens---Material-UI-Actions.js ') ?>"></script>
-<script src="<?= base_url('assets/js/Table-With-Search-search-table.js') ?>"></script>
 
 <script src="<?= base_url('assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/bs-init.js') ?>"></script>

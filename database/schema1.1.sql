@@ -6,6 +6,7 @@ CREATE TABLE type_service(
    type VARCHAR(250)  NOT NULL,
    duree TIME NOT NULL,
    montant DECIMAL(15,2)   NOT NULL DEFAULT 0,
+    date_suppression DATETIME,
    PRIMARY KEY(idTypeService)
 );
 
@@ -75,3 +76,7 @@ FROM voiture JOIN type_voiture ON voiture.idTypeVoiture = type_voiture.idTypeVoi
 
 CREATE OR REPLACE VIEW v_client as
 SELECT v_voiture.* FROM client JOIN v_voiture ON client.idClient = v_voiture.idClient;
+
+CREATE OR REPLACE VIEW v_type_service as
+SELECT *
+FROM type_service WHERE date_suppression IS NULL;
