@@ -31,7 +31,7 @@ class Car_model extends CI_Model {
         
         if ($result->num_rows() == 0) {
             // Si le type de voiture n'existe pas, retourner une erreur
-            return false;
+            return -1;
         }
 
         $type_voiture = $result->row_array();
