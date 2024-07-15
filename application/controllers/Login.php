@@ -23,17 +23,17 @@ class Login extends CI_Controller
             $type = $this->input->post('types');
             $numero = $this->input->post('matricule');
 
-            $reponse['success'] = $this->c->login($type, $numero);
+            if ($this->c->isNumeroVoitureExist($numero)) {
+                $reponse['success'] = $this->c->login($numero, $type);
 
-            if ($reponse['success']){
-                //$this->session->set_userdata('client', serialize($this->User->getUtilisateur($login, $motdepasse)));
-                $this->session->set_userdata('client', 1);
+                if ($reponse['success']){
+                    $this->session->set_userdata('client', serialize($this->c->getClient($numero, $type)));
+                } else {
+                    $reponse['message'] = "Le numero de matriculation ne correspond pas avec le type de voiture";
+                }
             } else {
-                $reponse['message'] = "Le numero de matriculation ne correspond pas avec le type de voiture";
-            }
-
-            if (1==2) {
-                $reponse['success'] = $this->c->registrer($type, $numero);
+                $reponse['success'] = $this->c->register($numero, $type);
+                if ($reponse['success']) $this->session->set_userdata('client', serialize($this->c->getClient($numero, $type)));
             }
 
         } catch (Exception $e){

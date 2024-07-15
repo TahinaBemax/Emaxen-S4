@@ -3,9 +3,18 @@
 class Voiture extends CI_Model
 {
     public function getAll(){
-        $voiture[] = array('idTypeVoiture' => 1, 'type' => '4x4');
-        $voiture[] = array('idTypeVoiture' => 2, 'type' => 'Légére');
-        $voiture[] = array('idTypeVoiture' => 3, 'type' => 'Utilitaire');
+        $query = "SELECT * FROM v_voiture";
+
+        $result = $this->db->query($query);
+        $voiture = [];
+
+        if ($result->num_rows() > 0) {
+            foreach ($result->result_array() as $row){
+                $voiture[] = $row;
+            }
+        } else {
+            return false;
+        }
         return $voiture;
     }
 }
