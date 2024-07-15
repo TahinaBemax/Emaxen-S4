@@ -1,3 +1,6 @@
+CREATE DATABASE garage;
+use garage;
+
 CREATE TABLE type_service(
    idTypeService INT AUTO_INCREMENT,
    type VARCHAR(250)  NOT NULL,
