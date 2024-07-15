@@ -64,3 +64,12 @@ CREATE TABLE voiture(
    FOREIGN KEY(idClient) REFERENCES client(idClient),
    FOREIGN KEY(idTypeVoiture) REFERENCES type_voiture(idTypeVoiture)
 );
+CREATE TABLE devis (
+   idDevis INT AUTO_INCREMENT,
+   idRendezVous INT NOT NULL,
+   montant DECIMAL(15, 2) NOT NULL,
+   date_paiement DATE,
+   statut VARCHAR(50) DEFAULT 'non payee',
+   PRIMARY KEY(idDevis),
+   FOREIGN KEY(idRendezVous) REFERENCES rendez_vous(idRendezVous)
+);
