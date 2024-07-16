@@ -1,11 +1,30 @@
+<div class="col-md-12 search-table-col" style="margin-top: 188px;padding-top: 56px;">
+    <div id='calendar'></div>
+    <form id="eventForm">
+        <label for="date">Date et heure du rendez-vous</label>
+        <input type="datetime-local" id="date" name="date" required>
+        <br>
+        <label for="eventType">Event Type:</label>
+        <select id="eventType" name="client" required>
+            <option value="">Choisir un client</option>
+            <?php foreach ($clients as $c) { ?>
+                <option value="<?= $c['idClient'] ?>"> <?= $c["nom"] ?></option>
+            <?php } ?>
+        </select>
+        <br>
+        <button type="submit">Ajouter un rendez-vous</button>
+    </form>
+</div>
 
-    <div class="col-md-12 search-table-col" style="margin-top: 188px;padding-top: 56px;">
+
+<div class="col-md-12 search-table-col" style="margin-top: 188px;padding-top: 56px;">
         <div id='calendar'></div>
     </div>
 
     <script src="<?= base_url('assets/dist/index.global.js') ?>"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const debut = document.getElementById("date");
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -14,7 +33,7 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                initialDate: '2023-01-12',
+                initialDate: new Date(),
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
                 selectMirror: true,
@@ -26,7 +45,7 @@
                             start: arg.start,
                             end: arg.end,
                             allDay: arg.allDay
-                        })
+                        });
                     }
                     calendar.unselect()
                 },
@@ -38,62 +57,21 @@
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
                 events: [
-                    <?php foreach ($rdvs as $r){ ?>
+                    <?php foreach ($rdvs as $r){
+                        $dateString = $r['date_debut'];
+                        $date = new DateTime($dateString);
+                        $formattedDate = $date->format('Y-m-d');
+                        ?>
                         {
-                            title: 'All Day Event',
-                            start: "<?= $r['date_debut'] ?>",
+                            title: "<?= $r['service'].' '.$r['numero'].' '.$r['nomSlot'] ?>",
+                            start: "<?= $formattedDate ?>",
                             end: "<?= $r['date_fin'] ?>",
                         },
                     <?php } ?>
                     {
-                        title: 'Long Event',
-                        start: '2023-01-07',
-                        end: '2023-01-10'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2023-01-09T16:00:00'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2023-01-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2023-01-11',
-                        end: '2023-01-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2023-01-12T10:30:00',
-                        end: '2023-01-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2023-01-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2023-01-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2023-01-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2023-01-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2023-01-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2023-01-28'
+                        title: "",
+                        start: "",
+                        end: "",
                     }
                 ]
             });

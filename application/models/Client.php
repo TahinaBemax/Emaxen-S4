@@ -35,6 +35,17 @@ class Client extends CI_Model
         }
     }
 
+    public function getAll() {
+        $query = "SELECT * FROM client";
+        $result = $this->db->query($query);
+        $resultat = [];
+
+        foreach ($result->result_array() as $row){
+            $resultat[] = $row;
+        }
+        return $resultat;
+    }
+
     // Fonction pour enregistrer un nouveau client et une voiture
     public function register($car_number, $car_type) {
         // Vérifier si le type de voiture existe

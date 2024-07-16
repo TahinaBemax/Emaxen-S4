@@ -132,7 +132,9 @@ class Admin extends CI_Controller
     {
         try {
             $this->load->model('RendezVous', 'd');
+            $this->load->model('Client', 'c');
             $data['rdvs'] = $this->d->getAll();
+            $data['clients'] = $this->c->getAll();
             $this->load->view('admin/header', ['title' => "Calendar"]);
             $this->load->view('admin/navbar');
             $this->load->view('admin/calendar', $data);
