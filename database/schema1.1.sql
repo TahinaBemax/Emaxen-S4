@@ -34,10 +34,9 @@ CREATE TABLE slot(
    PRIMARY KEY(idSlot)
 );
 
-CREATE TABLE heure(
+CREATE TABLE heureOuverture(
    idOuverture INT AUTO_INCREMENT,
    heure_ouverture TIME NOT NULL,
-   heure_fermeture TIME NOT null,
    PRIMARY KEY(idOuverture)
 );
 
