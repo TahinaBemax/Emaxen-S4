@@ -1,3 +1,5 @@
+<a href="http://localhost/garage/Admin/deleteAll">Réinitialiser la base de donnée</a>
+
 <div class="container-fluid" style="padding-top: 252px;">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-6">

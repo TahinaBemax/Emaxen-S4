@@ -25,7 +25,7 @@
                 foreach ($devis as $d) { ?>
                     <tr>
                         <td><?= $d['numero'] ?></td>
-                        <td><?= $d['service'] ?></td>
+                        <td><?= $d['type'] ?></td>
                         <td><?= $d['montant'] ?></td>
                         <td><?= $d['montant'] ?></td>
                         <td><?= $d['date_debut'] ?></td>

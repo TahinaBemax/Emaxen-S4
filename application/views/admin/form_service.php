@@ -38,7 +38,7 @@
                  style="padding-top: 17px;border-style: none;margin-left: 21px;">
                 <h2 class="display-6 fw-bold mb-6"><span class="underline pb-1"
                                                          style="margin-right: 14px;padding-right: 0px;"><span
-                                style="font-weight: normal !important;">Modification service</span></span></h2>
+                                style="font-weight: normal !important;">Form service</span></span></h2>
 
                 <!-- FORM -->
                 <form id="loginForm" data-bs-theme="light">

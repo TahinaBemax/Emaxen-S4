@@ -23,5 +23,28 @@ class Administrateur extends CI_Model
             return $result->row_array();
         }
     }
+
+    /**
+     * @throws Exception
+     */
+    public function deleteAllData(){
+        try {
+            // Désactiver les contraintes de clé étrangère
+            $this->db->query('SET foreign_key_checks = 0');// Vider les tables en conservant les informations fixes
+            $this->db->query('DELETE FROM client');
+            $this->db->query('DELETE FROM voiture');
+            $this->db->query('DELETE FROM rendez_vous');
+            $this->db->query('DELETE FROM devis');
+            $this->db->query('DELETE FROM type_voiture');
+            $this->db->query('DELETE FROM type_service');// Réactiver les contraintes de clé étrangère
+            $this->db->query('SET foreign_key_checks = 1');
+
+        } catch (Exception $e) {
+            throw $e;
+        } finally {
+            $this->db->query('SET foreign_key_checks = 1');
+        }
+        return true;
+    }
 }
 

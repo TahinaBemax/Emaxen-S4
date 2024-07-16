@@ -4,10 +4,10 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav justify-content-evenly ms-auto w-100 d-flex flex-row g-3">
                 <li class="nav-item">
-                    <a href="http://localhost/garage/Home/admin">Home</a>
+                    <a href="http://localhost/garage/Admin/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="http://localhost/garage/Admin/">Service</a>
+                    <a href="http://localhost/garage/Admin/service">Service</a>
                 </li>
                 <li class="nav-item">
                     <a href="http://localhost/garage/Admin/devis">Devis</a>
@@ -16,8 +16,15 @@
                     <a href="http://localhost/garage/Admin/calendar">Rendez-vous</a>
                 </li>
                 <li class="nav-item">
+                    <a href="http://localhost/garage/Admin/import">Importé</a>
+                </li>
+                <li class="nav-item">
                     <a href="http://localhost/garage/Deconnexion/">Log Out</a>
                 </li>
+                <li class="nav-item">
+                    <strong><a href="http://localhost/garage/Admin/deleteAll">Réinitialiser les données</a></strong>
+                </li>
+
             </ul>
         </div>
     </div>

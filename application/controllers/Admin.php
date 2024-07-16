@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-    public function index()
+    public function index(){
+        try {
+            $this->load->view('admin/dashboard');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function service()
     {
         try {
             $this->load->model('Service', 's');
@@ -15,12 +22,22 @@ class Admin extends CI_Controller
             echo $e->getMessage();
         }
     }
-
     public function delete($idTypeServicee)
     {
         try {
             $this->load->model('Service', 's');
             if ($this->s->delete_type_service($idTypeServicee)) {
+                redirect("http://localhost/garage/Admin/");
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function deleteAll()
+    {
+        try {
+            $this->load->model('Administrateur', 's');
+            if ($this->s->deleteAllData()) {
                 redirect("http://localhost/garage/Admin/");
             }
         } catch (Exception $e) {
@@ -133,8 +150,10 @@ class Admin extends CI_Controller
         try {
             $this->load->model('RendezVous', 'd');
             $this->load->model('Client', 'c');
+            $this->load->model('Service', 's');
             $data['rdvs'] = $this->d->getAll();
-            $data['clients'] = $this->c->getAll();
+            $data['clients'] = $this->c->getAllVoiture();
+            $data['services'] = $this->s->getAll();
             $this->load->view('admin/header', ['title' => "Calendar"]);
             $this->load->view('admin/navbar');
             $this->load->view('admin/calendar', $data);
@@ -142,4 +161,61 @@ class Admin extends CI_Controller
             echo $e->getMessage();
         }
     }
+
+
+    /* ---- IMPORTATION --------*/
+    public function import(){
+        try {
+            $this->load->view('admin/header', ["title" => "Importation"]);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/import');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function importServices(){
+        //--- Load ---
+        $this->load->helper(array('form', 'url'));
+
+        try {
+            $this->load->model('Import', 'i');
+            if ($_FILES && $_FILES['service-csv']['size'] > 0) {
+                $extension = pathinfo($_FILES['service-csv']['name'], PATHINFO_EXTENSION);
+                if (strtolower($extension) === 'csv'){
+                    if($this->i->import_service_csv($_FILES['service-csv']['tmp_name'])){
+                        echo "<div style='color: green;'>Importation réussie</div>";
+                    }
+                }
+            } else {
+                echo "Fichier introuvable";
+            }
+
+        } catch (Exception $e) {
+            echo "<div style='color: red;'>" .$e->getMessage() ."</div>";
+        }
+    }
+
+    public function importTravaux(){
+        //--- Load ---
+        $this->load->helper(array('form', 'url'));
+
+        try {
+            $this->load->model('Import', 'i');
+            if ($_FILES && $_FILES['travaux-csv']['size'] > 0) {
+                $extension = pathinfo($_FILES['travaux-csv']['name'], PATHINFO_EXTENSION);
+                if (strtolower($extension) === 'csv'){
+                    if($this->i->import_travaux_csv($_FILES['travaux-csv']['tmp_name'])){
+                        redirect("http://localhost/garage/Admin/");
+                        exit();
+                    }
+                }
+            } else {
+                echo "Fichier introuvable";
+            }
+
+        } catch (Exception $e) {
+            echo "<div style='color: red;'>" .$e->getMessage() ."</div>";
+        }
+    }
+    /* ---- IMPORTATION --------*/
 }
