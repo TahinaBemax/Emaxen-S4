@@ -1,20 +1,33 @@
 <?php
-class Car_model extends CI_Model {
+defined('BASEPATH') OR exit('No direct script access allowed');
+class Client extends CI_Model
+{
+    public function isNumeroVoitureExist($car_number)
+    {
+        $query = "SELECT * FROM v_voiture WHERE numero = %s";
+        $query = sprintf($query, $this->db->escape($car_number));
 
-    public function __construct() {
-        $this->load->database();
+        $result = $this->db->query($query);
+
+        return $result->num_rows() >= 1;
     }
 
     // Fonction pour vérifier le login
     public function login($car_number, $car_type) {
-        $query = "SELECT voiture.idVoiture, voiture.numero, type_voiture.type
-                  FROM voiture
-                  JOIN type_voiture ON voiture.idTypeVoiture = type_voiture.idTypeVoiture
-                  WHERE voiture.numero = %s AND type_voiture.type = %s";
+        $query = "SELECT * FROM v_voiture WHERE numero = %s AND idTypeVoiture = %s";
         $query = sprintf($query, $this->db->escape($car_number), $this->db->escape($car_type));
-        
+
         $result = $this->db->query($query);
-        
+
+        return $result->num_rows() == 1;
+    }
+
+    // Fonction pour vérifier le login
+    public function getClient($car_number, $car_type) {
+        $query = "SELECT * FROM v_client WHERE numero = %s AND type = %s";
+        $query = sprintf($query, $this->db->escape($car_number), $this->db->escape($car_type));
+
+        $result = $this->db->query($query);
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -22,23 +35,32 @@ class Car_model extends CI_Model {
         }
     }
 
+    public function getAll() {
+        $query = "SELECT * FROM client";
+        $result = $this->db->query($query);
+        $resultat = [];
+
+        foreach ($result->result_array() as $row){
+            $resultat[] = $row;
+        }
+        return $resultat;
+    }
+
     // Fonction pour enregistrer un nouveau client et une voiture
     public function register($car_number, $car_type) {
         // Vérifier si le type de voiture existe
-        $query = "SELECT idTypeVoiture FROM type_voiture WHERE type = %s";
+        $query = "SELECT idTypeVoiture FROM type_voiture WHERE idTypeVoiture = %s";
         $query = sprintf($query, $this->db->escape($car_type));
         $result = $this->db->query($query);
-        
+
         if ($result->num_rows() == 0) {
-            // Si le type de voiture n'existe pas, retourner une erreur
-            return -1;
+            throw new Exception("Le type du véhicule n'existe pas");
         }
 
         $type_voiture = $result->row_array();
 
         // Insérer un nouveau client
-        $client_data = array('password' => password_hash($car_number, PASSWORD_DEFAULT));
-        $this->db->insert('client', $client_data);
+        $this->db->insert('client', ['idClient' => null]);
         $client_id = $this->db->insert_id();
 
         // Insérer la voiture
@@ -49,24 +71,6 @@ class Car_model extends CI_Model {
         );
 
         return $this->db->insert('voiture', $car_data);
-    }
-
-    // Fonction pour gérer le processus de connexion et d'inscription automatique
-    public function authenticate($car_number, $car_type) {
-        // Vérifier si la voiture existe déjà
-        $car = $this->login($car_number, $car_type);
-
-        if ($car) {
-            return $car; // Connexion réussie
-        } else {
-            // Sinon, enregistrer une nouvelle voiture et un nouveau client
-            if ($this->register($car_number, $car_type)) {
-                // Réessayer de se connecter après l'inscription
-                return $this->login($car_number, $car_type);
-            } else {
-                return false; // Inscription échouée
-            }
-        }
     }
 }
 ?>
