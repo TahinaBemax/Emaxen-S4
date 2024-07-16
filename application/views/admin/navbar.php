@@ -13,7 +13,7 @@
                     <a href="http://localhost/garage/Admin/devis">Devis</a>
                 </li>
                 <li class="nav-item">
-                    <a href="http://localhost/garage/Rdv/calendar">Rendez-vous</a>
+                    <a href="http://localhost/garage/Admin/calendar">Rendez-vous</a>
                 </li>
                 <li class="nav-item">
                     <a href="http://localhost/garage/Deconnexion/">Log Out</a>

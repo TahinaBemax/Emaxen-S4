@@ -1,6 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class RendezVous extends CI_Model {
+    public function getAll(){
+        $query = "SELECT * FROM rendez_vous ORDER BY idRendezVous ASC";
+
+        $result = $this->db->query($query);
+        $services = [];
+
+        if ($result->num_rows() > 0) {
+            foreach ($result->result_array() as $row){
+                $services[] = $row;
+            }
+        } else {
+            return false;
+        }
+        return $services;
+    }
     public function insert($date_debut, $date_fin, $idSlot, $idClient, $idTypeService){
         $query = "INSERT INTO rendez_vous (date_debut, date_fin, idSlot, idClient, idTypeService) 
         VALUES (?, ?, ?, ?, ?)";

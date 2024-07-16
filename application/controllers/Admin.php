@@ -126,4 +126,18 @@ class Admin extends CI_Controller
             echo $e->getMessage();
         }
     }
+
+
+    public function calendar()
+    {
+        try {
+            $this->load->model('RendezVous', 'd');
+            $data['rdvs'] = $this->d->getAll();
+            $this->load->view('admin/header', ['title' => "Calendar"]);
+            $this->load->view('admin/navbar');
+            $this->load->view('admin/calendar', $data);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }
