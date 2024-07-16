@@ -1,4 +1,7 @@
 <?php
+
+use fpdf185\FPDF;
+
 require('/fpdf.php');
 
 class Devis_model extends CI_Model {
@@ -8,26 +11,7 @@ class Devis_model extends CI_Model {
     }
 
     // Fonction pour générer le PDF du devis
-    public function generate_devis_pdf($idRendezVous) {
-        // Récupérer les informations du rendez-vous, de la voiture et du service
-        $query = $this->db->query("
-            SELECT 
-                rv.date_debut, rv.date_fin, rv.idSlot, 
-                v.numero as voiture_numero, tv.type as voiture_type, 
-                ts.duree, ts.montant
-            FROM rendez_vous rv
-            JOIN voiture v ON rv.idClient = v.idClient
-            JOIN type_voiture tv ON v.idTypeVoiture = tv.idTypeVoiture
-            JOIN type_service ts ON rv.idTypeService = ts.idTypeService
-            WHERE rv.idRendezVous = ?
-        ", array($idRendezVous));
-        
-        if ($query->num_rows() != 1) {
-            return false; // Rendez-vous non trouvé
-        }
-
-        $data = $query->row_array();
-
+    public function generate_devis_pdf() {
         // Initialiser FPDF
         $pdf = new FPDF();
         $pdf->AddPage();

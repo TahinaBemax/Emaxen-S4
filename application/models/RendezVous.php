@@ -63,7 +63,9 @@ class RendezVous extends CI_Model {
      * @throws Exception
      */
     public function book_appointment($date, $heure_debut, $idTypeService, $idClient, $service, $available_slots) {
+        $this->load->model("Devis", 'd');
         // Heure de fermeture et d'ouverture du garage
+        $id = [];
         $hours = $this->get_garage_hours();
         $heure_fermeture = $hours['heure_fermeture'];
         $heure_ouverture = $hours['heure_ouverture'];
@@ -83,8 +85,10 @@ class RendezVous extends CI_Model {
         $idSlot = array_shift($available_slots);
 
         // Réserver le créneau
-        $this->insert("$date $heure_debut", $date_fin, $idSlot, $idClient, $idTypeService);
-
+        if($this->insert("$date $heure_debut", $date_fin, $idSlot, $idClient, $idTypeService)){
+            $id[0] = $this->db->insert_id();
+            $this->d->insert($service["montant"], $id[0]);
+        }
 
         // Si le service dépasse l'heure de fermeture, réserver le créneau pour le lendemain
         if ($duree_reste > 0) {
@@ -97,10 +101,13 @@ class RendezVous extends CI_Model {
             }
 
             $idSlot_reste = array_shift($available_slots);
-            $this->insert($date_debut_reste, $date_fin_reste, $idSlot_reste, $idClient, $idTypeService);
+            if($this->insert($date_debut_reste, $date_fin_reste, $idSlot_reste, $idClient, $idTypeService)){
+                $id[1] = $this->db->insert_id();
+                $this->d->insert($service["montant"], $id[1]);
+            }
         }
 
-        return true;
+        return $id;
     }
 
     // Fonction pour obtenir les détails du service

@@ -14,6 +14,14 @@ class Home extends CI_Controller
             echo $e->getMessage();
         }
     }
+    public function exportPdf($id){
+        try {
+            $this->load->model('Devis', 'd');
+            $data['services'] = $this->d->generate_devis_pdf($this->d->getById($id));
+        } catch (Exception $e){
+            echo $e->getMessage();
+        }
+    }
 
 
     

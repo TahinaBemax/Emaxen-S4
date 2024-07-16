@@ -93,10 +93,14 @@ FROM type_service WHERE date_suppression IS NULL;
 
 
 CREATE OR REPLACE VIEW v_devis as
-SELECT devis.*, voiture.numero, type_service.type as service,
-       rendez_vous.date_debut, rendez_vous.date_fin
+SELECT devis.montant as montant_total, devis.idRendezVous, devis.date_paiement,devis.statut,
+       voiture.numero, voiture.idTypeVoiture, type_voiture.type as type_voiture,
+       type_service.*,
+       rendez_vous.date_debut, rendez_vous.date_fin,
+       rendez_vous.idSlot, rendez_vous.idClient
 FROM devis
          JOIN rendez_vous ON devis.idRendezVous = rendez_vous.idRendezVous
          JOIN voiture ON rendez_vous.idClient = voiture.idClient
-         JOIN type_service ON rendez_vous.idTypeService = type_service.idTypeService;
+         JOIN type_service ON rendez_vous.idTypeService = type_service.idTypeService
+         JOIN type_voiture ON voiture.idTypeVoiture = type_voiture.idTypeVoiture;
 

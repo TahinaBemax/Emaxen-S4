@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const rep = xhr.response;
                     if (rep.success){
                         showMessage(success,"alert-success", rep.reponse);
+                        for (let i = 0; i < rep.id.length; i++) {
+                            window.open(`http://localhost/garage/Home/exportPdf/${rep.id}`, '_blank');
+                        }
                     } else {
                             showMessage(date,"alert-danger", rep.message.date);
                             showMessage(heure,"alert-danger", rep.message.heure);

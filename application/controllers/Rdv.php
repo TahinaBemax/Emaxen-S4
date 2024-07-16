@@ -11,7 +11,8 @@ class Rdv extends CI_Controller
         $reponse = array(
             "success" => false,
             "message" => array("error" => false, "date" => '', "heure" => '', "service" => '', "autre" => ''),
-            "reponse" => ''
+            "reponse" => '',
+            "id" => array()
         );
 
         try {
@@ -50,7 +51,9 @@ class Rdv extends CI_Controller
                         $available_slots = $this->rdv->check_availability($date, $heure_debut, $service['duree']);
                         if (!empty($available_slots)) {
                             $reponse["reponse"] = "Rendez-vous validée";
-                            $reponse["success"] = $this->rdv->book_appointment($date, $heure_debut, $idTypeService, $idClient, $service, $available_slots);
+                            $ids = $this->rdv->book_appointment($date, $heure_debut, $idTypeService, $idClient, $service, $available_slots);
+                            $reponse["success"] = (is_array($ids) && count($ids) > 0);
+                            $reponse["id"] = ($reponse["success"]) ? $ids: array();
                         } else {
                             $reponse["message"]["autre"] = "Aucun créneau disponible pour la date et l'heure demandées.";
                         }
